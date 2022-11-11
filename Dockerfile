@@ -13,4 +13,4 @@ WORKDIR /root
 COPY --from=builder /tmp/hath_client .
 COPY build/start.sh .
 RUN chmod +x start.sh
-CMD ["start.sh"]
+CMD ["/root/start.sh"]
