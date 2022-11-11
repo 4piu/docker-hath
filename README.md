@@ -1,67 +1,77 @@
 # Hentai@Home on Docker
 
-## Support platforms:
-
-	linux/amd64
-	linux/arm64
-	linux/arm
-	linux/ppc64le
-	linux/386
-	
-### For i386/x32:
-Eclipse temurin don't have images for i386/x32 , i use ibmjava instead.  
-So use tag `disappear9/hentaiathome:i386`  
-
+## Support platforms
+* linux/amd64
+* linux/arm64/v8
+* linux/arm/v7
+* linux/ppc64le
 
 ## Deploy
 
-Replace `/DOWNLOAD_DIR` `YOUR_CLIENT_KEY` `YOUR_PORT` with yours.
+Replace `<HATH_PATH>` `<YOUR_CLIENT_ID>` `<YOUR_CLIENT_KEY>` `<PORT>` with your configurations.
 
-### The format of `YOUR_CLIENT_KEY`
+### Run command below
 
-`"$Client ID"-"$Client Key"` like this: `000000-ABCDEFGHIJKLMN1234OP`
+```sh
+#Pull image
+sudo docker pull d0v0b/hentaiathome
 
-### About `YOUR_PORT`
+#Run it
+sudo docker run -d \
+--name hath \
+-p <PORT>:<PORT> \
+-v <HATH_PATH>:/hath \
+-e CLIENT_ID=<YOUR_CLIENT_ID> CLIENT_KEY=<YOUR_CLIENT_KEY> \
+d0v0b/hentaiathome
 
-https://ehwiki.org/wiki/Technical_Issues#Ports 
+# Or if you want to use host network stack
+sudo docker run -d \
+--name hath \
+--net host \
+-v <HATH_PATH>:/hath \
+-e CLIENT_ID=<YOUR_CLIENT_ID> CLIENT_KEY=<YOUR_CLIENT_KEY> \
+d0v0b/hentaiathome
 
-## Run command below:
-	#Pull image
-	sudo docker pull disappear9/hentaiathome
+# To use different cache and download path:
+sudo docker run -d \
+--name hath \
+-p <PORT>:<PORT> \
+-v <HATH_PATH>:/hath \
+-v <HATH_CACHE_PATH>:/hath/cache \
+-v <HATH_DOWNLOAD_PATH>:/hath/download \
+-e CLIENT_ID=<YOUR_CLIENT_ID> CLIENT_KEY=<YOUR_CLIENT_KEY> \
+d0v0b/hentaiathome
+```
 
-	#Create volume for caches and logs
-	sudo docker volume create h_at_h_data
-	
-	#Run it
-	sudo docker run -d --name h_at_h -p YOUR_PORT:YOUR_PORT -v h_at_h_data:/hath/data -v /DOWNLOAD_DIR:/hath/download -e HatH_KEY=YOUR_CLIENT_KEY disappear9/hentaiathome
+## Update
 
-## Update:
-	#Stop
-	sudo docker stop h_at_h
-	
-	#Delete
-	sudo docker rm h_at_h
-	
-	#Delete old image
-	sudo docker rmi disappear9/hentaiathome
-	
-	#Pull new image
-	sudo docker pull disappear9/hentaiathome
-	
-	#Run it
-	sudo docker run -d --name h_at_h -p YOUR_PORT:YOUR_PORT -v h_at_h_data:/hath/data -v /DOWNLOAD_DIR:/hath/download disappear9/hentaiathome
-	Or
-	sudo docker run -d --name h_at_h --net host -v h_at_h_data:/hath/data -v /DOWNLOAD_DIR:/hath/download disappear9/hentaiathome
-	If you want to change port in the future.
-	
+```sh
+# Stop the container
+sudo docker stop hath
 
-## For Unraid user:
-<del> Add this to `Template repositories`: `https://github.com/Disappear9/dockerfile-other` </del>  
-Okay? unraid [removed Template Repositories](https://forums.unraid.net/topic/112170-allow-template-repositories-to-be-hosted-from-other-sources/#comment-1021630)😅
+# Delete the container
+sudo docker rm hath
 
-### About `Port:`
-	(Container Port) and (Host Port) should be identical, 
-	or you could just switch to (Advanced View), and set (Network Type) to (Host).
+# Delete the old image
+sudo docker rmi d0v0b/hentaiathome
+
+# Pull the new image
+sudo docker pull d0v0b/hentaiathome
+
+# Run new container
+sudo docker run -d \
+--name hath \
+-p <PORT>:<PORT> \
+-v <HATH_PATH>:/hath \
+d0v0b/hentaiathome
+
+# Or if you want to use host network stack
+sudo docker run -d \
+--name hath \
+--net host \
+-v <HATH_PATH>:/hath \
+d0v0b/hentaiathome
+```
 
 ## Changelog
 2020/10/06 Graceful shutdown  
