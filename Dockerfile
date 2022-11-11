@@ -8,7 +8,7 @@ RUN apk --no-cache add unzip \
     && echo -n ""$HatH_SHA256"  hath.zip" | sha256sum -c \
     && unzip hath.zip
 
-FROM eclipse-temurin:8-jre-focal AS release
+FROM eclipse-temurin:8-jre AS release
 WORKDIR /root
 COPY --from=builder /tmp/hath_client .
 COPY build/start.sh .
