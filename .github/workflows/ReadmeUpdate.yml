@@ -1,0 +1,26 @@
+name: Update DockerHub Readme
+on:
+  release:
+    types: [published]
+  push:
+    braches: ['main']
+    paths: ['README.md']
+  workflow_dispatch:
+
+jobs:
+  update_dockerhub_readme:
+    name: Push README to Docker Hub
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+        with:
+            fetch-depth: 1
+
+      - name: Dockerhub Readme
+        uses: ms-jpq/sync-dockerhub-readme@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          repository: ${{ secrets.DOCKERHUB_USERNAME }}/hentaiathome
+          readme: "./README.md"
