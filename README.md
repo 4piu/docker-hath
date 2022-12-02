@@ -21,7 +21,8 @@ sudo docker run -d \
 --name hath \
 -p <PORT>:<PORT> \
 -v <HATH_PATH>:/hath \
--e CLIENT_ID=<YOUR_CLIENT_ID> CLIENT_KEY=<YOUR_CLIENT_KEY> \
+-e CLIENT_ID=<YOUR_CLIENT_ID> \
+-e CLIENT_KEY=<YOUR_CLIENT_KEY> \
 d0v0b/hentaiathome
 
 # Or if you want to use host network stack
@@ -29,7 +30,8 @@ sudo docker run -d \
 --name hath \
 --net host \
 -v <HATH_PATH>:/hath \
--e CLIENT_ID=<YOUR_CLIENT_ID> CLIENT_KEY=<YOUR_CLIENT_KEY> \
+-e CLIENT_ID=<YOUR_CLIENT_ID> \
+-e CLIENT_KEY=<YOUR_CLIENT_KEY> \
 d0v0b/hentaiathome
 
 # To use different cache and download path:
@@ -39,7 +41,8 @@ sudo docker run -d \
 -v <HATH_PATH>:/hath \
 -v <HATH_CACHE_PATH>:/hath/cache \
 -v <HATH_DOWNLOAD_PATH>:/hath/download \
--e CLIENT_ID=<YOUR_CLIENT_ID> CLIENT_KEY=<YOUR_CLIENT_KEY> \
+-e CLIENT_ID=<YOUR_CLIENT_ID> \
+-e CLIENT_KEY=<YOUR_CLIENT_KEY> \
 d0v0b/hentaiathome
 ```
 
